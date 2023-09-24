@@ -41,6 +41,21 @@ app.get('/fagyasztok', function (req, res, next) {
         }
     );
 });
+
+app.get('/fagyasztok/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM fagyasztok WHERE Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM fagyasztok) LIMIT 1',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
 app.get('/fagyasztok/:selected_freezer_y_c', function (req, res, next) {
     var adr = req.params.selected_freezer_y_c;
     var sql = 'SELECT * FROM fagyasztok WHERE Fogyasztasev < ?';
@@ -57,6 +72,20 @@ app.get('/fagyasztok/:selected_freezer_y_c', function (req, res, next) {
 app.get('/fozolapok', function (req, res, next) {
     db.query(
         'SELECT * FROM fozolapok',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
+app.get('/fozolapok/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM fozolapok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM fozolapok) LIMIT 1',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -95,6 +124,20 @@ app.get('/hutok', function (req, res, next) {
     );
 });
 
+app.get('/hutok/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM hutok WHERE Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM hutok) LIMIT 1',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
 app.get('/hutok/:selected_refrigerator_y_c', function (req, res, next) {
     var adr = req.params.selected_refrigerator_y_c;
     var sql = 'SELECT * FROM hutok WHERE Fogyasztasev < ?';
@@ -122,9 +165,37 @@ app.get('/mikrohullamu_sutok', function (req, res, next) {
     );
 });
 
+app.get('/mikrohullamu_sutok/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM mikrohullamu_sutok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM mikrohullamu_sutok) LIMIT 1',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
 app.get('/mosogatogepek', function (req, res, next) {
     db.query(
         'SELECT * FROM mosogatogepek',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
+app.get('/mosogatogepek/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM mosogatogepek WHERE Fogyasztas_kWh_eco_program = (SELECT MIN(Fogyasztas_kWh_eco_program) FROM mosogatogepek) LIMIT 1',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -163,9 +234,37 @@ app.get('/paraelszivok', function (req, res, next) {
     );
 });
 
+app.get('/paraelszivok/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM paraelszivok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM paraelszivok) LIMIT 1',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
 app.get('/sutok', function (req, res, next) {
     db.query(
         'SELECT * FROM sutok',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
+app.get('/sutok/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM sutok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM sutok) LIMIT 1',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -204,6 +303,20 @@ app.get('/mosogepek', function (req, res, next) {
     );
 });
 
+app.get('/mosogepek/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM mosogepek WHERE Fogyasztas_eco_40_60_program = (SELECT MIN(Fogyasztas_eco_40_60_program) FROM mosogepek) LIMIT 1',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
 app.get('/mosogepek/:selected_washing_m_ep40_60_c', function (req, res, next) {
     var adr = req.params.selected_washing_m_ep40_60_c;
     var sql = 'SELECT * FROM mosogepek WHERE Fogyasztas_eco_40_60_program < ?';
@@ -220,6 +333,20 @@ app.get('/mosogepek/:selected_washing_m_ep40_60_c', function (req, res, next) {
 app.get('/szaritogepek', function (req, res, next) {
     db.query(
         'SELECT * FROM szaritogepek',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
+app.get('/szaritogepek/min', function (req, res, next) {
+    db.query(
+        'SELECT * FROM szaritogepek WHERE Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM szaritogepek) LIMIT 1',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -248,6 +375,7 @@ app.get('/szaritogepek/:selected_dryer_y_c', function (req, res, next) {
 
 app.post('/users', async (req, res) => {
     const { username, email, password, action } = req.body;
+    const plainPassword = req.body.password; // Felhasználó által megadott jelszó
 
     if (action === 'login') {
         // Ellenőrizd az email címet az adatbázisban
@@ -261,10 +389,6 @@ app.post('/users', async (req, res) => {
 
             if (results.length === 1) {
                 const storedHashedPassword = results[0].password;
-                const saltRounds = 10; // A titkosítási erősség (10-12 ajánlott)
-                const plainPassword = 'password'; // Felhasználó által megadott jelszó
-                bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {});
-
 
                 // Itt használhatod a bcrypt.compare-t a jelszó ellenőrzésére
                 bcrypt.compare(plainPassword, storedHashedPassword, (compareErr, compareResult) =>{
@@ -286,11 +410,9 @@ app.post('/users', async (req, res) => {
                 // A megadott email címhez nem tartozik felhasználó
                 res.status(401).json({ error: 'Sikertelen bejelentkezés' });
             }
-            });
-
+        });
     } else if (action === 'register') {
         const saltRounds = 10; // A titkosítási erősség (10-12 ajánlott)
-        const plainPassword = 'password'; // Felhasználó által megadott jelszó
         bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
             if (err) {
                 // Kezeld a hibát
