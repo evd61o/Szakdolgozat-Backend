@@ -30,7 +30,7 @@ db.connect(err => {
 
 app.get('/fagyasztok', function (req, res, next) {
     db.query(
-        'SELECT * FROM fagyasztok',
+        'SELECT fagyasztok.*, markak.Marka FROM fagyasztok INNER JOIN markak ON fagyasztok.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -44,7 +44,7 @@ app.get('/fagyasztok', function (req, res, next) {
 
 app.get('/fagyasztok/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM fagyasztok WHERE Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM fagyasztok) LIMIT 1',
+        'SELECT fagyasztok.*, markak.Marka FROM fagyasztok INNER JOIN markak ON fagyasztok.BrandID = markak.BrandID WHERE fagyasztok.Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM fagyasztok) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -58,7 +58,7 @@ app.get('/fagyasztok/min', function (req, res, next) {
 
 app.get('/fagyasztok/:selected_freezer_y_c', function (req, res, next) {
     var adr = req.params.selected_freezer_y_c;
-    var sql = 'SELECT * FROM fagyasztok WHERE Fogyasztasev < ?';
+    var sql = 'SELECT fagyasztok.*, markak.Marka FROM fagyasztok INNER JOIN markak ON fagyasztok.BrandID = markak.BrandID WHERE fagyasztok.Fogyasztasev < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -71,7 +71,7 @@ app.get('/fagyasztok/:selected_freezer_y_c', function (req, res, next) {
 
 app.get('/fozolapok', function (req, res, next) {
     db.query(
-        'SELECT * FROM fozolapok',
+        'SELECT fozolapok.*, markak.Marka FROM fozolapok INNER JOIN markak ON fozolapok.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -85,7 +85,7 @@ app.get('/fozolapok', function (req, res, next) {
 
 app.get('/fozolapok/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM fozolapok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM fozolapok) LIMIT 1',
+        'SELECT fozolapok.*, markak.Marka FROM fozolapok INNER JOIN markak ON fozolapok.BrandID = markak.BrandID WHERE fozolapok.Fogyasztas = (SELECT MIN(Fogyasztas) FROM fozolapok) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -99,7 +99,7 @@ app.get('/fozolapok/min', function (req, res, next) {
 
 app.get('/fozolapok/:selected_hot_plate_c', function (req, res, next) {
     var adr = req.params.selected_hot_plate_c;
-    var sql = 'SELECT * FROM fozolapok WHERE Fogyasztas < ?';
+    var sql = 'SELECT fozolapok.*, markak.Marka FROM fozolapok INNER JOIN markak ON fozolapok.BrandID = markak.BrandID WHERE fozolapok.Fogyasztas < ?;'
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -112,7 +112,7 @@ app.get('/fozolapok/:selected_hot_plate_c', function (req, res, next) {
 
 app.get('/hutok', function (req, res, next) {
     db.query(
-        'SELECT * FROM hutok',
+        'SELECT hutok.*, markak.Marka FROM hutok INNER JOIN markak ON hutok.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -126,7 +126,7 @@ app.get('/hutok', function (req, res, next) {
 
 app.get('/hutok/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM hutok WHERE Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM hutok) LIMIT 1',
+        'SELECT hutok.*, markak.Marka FROM hutok INNER JOIN markak ON hutok.BrandID = markak.BrandID WHERE hutok.Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM hutok) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -140,7 +140,7 @@ app.get('/hutok/min', function (req, res, next) {
 
 app.get('/hutok/:selected_refrigerator_y_c', function (req, res, next) {
     var adr = req.params.selected_refrigerator_y_c;
-    var sql = 'SELECT * FROM hutok WHERE Fogyasztasev < ?';
+    var sql = 'SELECT hutok.*, markak.Marka FROM hutok INNER JOIN markak ON hutok.BrandID = markak.BrandID WHERE hutok.Fogyasztasev < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -153,7 +153,7 @@ app.get('/hutok/:selected_refrigerator_y_c', function (req, res, next) {
 
 app.get('/mikrohullamu_sutok', function (req, res, next) {
     db.query(
-        'SELECT * FROM mikrohullamu_sutok',
+        'SELECT mikrohullamu_sutok.*, markak.Marka FROM mikrohullamu_sutok INNER JOIN markak ON mikrohullamu_sutok.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -167,7 +167,7 @@ app.get('/mikrohullamu_sutok', function (req, res, next) {
 
 app.get('/mikrohullamu_sutok/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM mikrohullamu_sutok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM mikrohullamu_sutok) LIMIT 1',
+        'SELECT mikrohullamu_sutok.*, markak.Marka FROM mikrohullamu_sutok INNER JOIN markak ON mikrohullamu_sutok.BrandID = markak.BrandID WHERE mikrohullamu_sutok.Fogyasztas = (SELECT MIN(Fogyasztas) FROM mikrohullamu_sutok) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -181,7 +181,7 @@ app.get('/mikrohullamu_sutok/min', function (req, res, next) {
 
 app.get('/mosogatogepek', function (req, res, next) {
     db.query(
-        'SELECT * FROM mosogatogepek',
+        'SELECT mosogatogepek.*, markak.Marka FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -195,7 +195,7 @@ app.get('/mosogatogepek', function (req, res, next) {
 
 app.get('/mosogatogepek/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM mosogatogepek WHERE Fogyasztas_kWh_eco_program = (SELECT MIN(Fogyasztas_kWh_eco_program) FROM mosogatogepek) LIMIT 1',
+        'SELECT mosogatogepek.*, markak.Marka FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID WHERE mosogatogepek.Fogyasztas_kWh_eco_program = (SELECT MIN(Fogyasztas_kWh_eco_program) FROM mosogatogepek) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -209,7 +209,7 @@ app.get('/mosogatogepek/min', function (req, res, next) {
 
 app.get('/mosogatogepek/:selected_dishwasher_ep_c', function (req, res, next) {
     var adr = req.params.selected_dishwasher_ep_c;
-    var sql = 'SELECT * FROM mosogatogepek WHERE Fogyasztas_kWh_eco_program < ?';
+    var sql = 'SELECT mosogatogepek.*, markak.Marka FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID WHERE mosogatogepek.Fogyasztas_kWh_eco_program < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -222,7 +222,7 @@ app.get('/mosogatogepek/:selected_dishwasher_ep_c', function (req, res, next) {
 
 app.get('/paraelszivok', function (req, res, next) {
     db.query(
-        'SELECT * FROM paraelszivok',
+        'SELECT paraelszivok.*, markak.Marka FROM paraelszivok INNER JOIN markak ON paraelszivok.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -236,7 +236,7 @@ app.get('/paraelszivok', function (req, res, next) {
 
 app.get('/paraelszivok/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM paraelszivok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM paraelszivok) LIMIT 1',
+        'SELECT paraelszivok.*, markak.Marka FROM paraelszivok INNER JOIN markak ON paraelszivok.BrandID = markak.BrandID WHERE paraelszivok.Fogyasztas = (SELECT MIN(Fogyasztas) FROM paraelszivok) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -250,7 +250,7 @@ app.get('/paraelszivok/min', function (req, res, next) {
 
 app.get('/sutok', function (req, res, next) {
     db.query(
-        'SELECT * FROM sutok',
+        'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -264,7 +264,7 @@ app.get('/sutok', function (req, res, next) {
 
 app.get('/sutok/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM sutok WHERE Fogyasztas = (SELECT MIN(Fogyasztas) FROM sutok) LIMIT 1',
+        'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Fogyasztas = (SELECT MIN(Fogyasztas) FROM sutok) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -278,7 +278,7 @@ app.get('/sutok/min', function (req, res, next) {
 
 app.get('/sutok/:selected_oven_c', function (req, res, next) {
     var adr = req.params.selected_oven_c;
-    var sql = 'SELECT * FROM sutok WHERE Fogyasztas < ?';
+    var sql = 'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Fogyasztas < ?;';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -291,7 +291,7 @@ app.get('/sutok/:selected_oven_c', function (req, res, next) {
 
 app.get('/mosogepek', function (req, res, next) {
     db.query(
-        'SELECT * FROM mosogepek',
+        'SELECT mosogepek.*, markak.Marka FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -305,7 +305,7 @@ app.get('/mosogepek', function (req, res, next) {
 
 app.get('/mosogepek/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM mosogepek WHERE Fogyasztas_eco_40_60_program = (SELECT MIN(Fogyasztas_eco_40_60_program) FROM mosogepek) LIMIT 1',
+        'SELECT mosogepek.*, markak.Marka FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID WHERE mosogepek.Fogyasztas_eco_40_60_program = (SELECT MIN(Fogyasztas_eco_40_60_program) FROM mosogepek) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -319,7 +319,7 @@ app.get('/mosogepek/min', function (req, res, next) {
 
 app.get('/mosogepek/:selected_washing_m_ep40_60_c', function (req, res, next) {
     var adr = req.params.selected_washing_m_ep40_60_c;
-    var sql = 'SELECT * FROM mosogepek WHERE Fogyasztas_eco_40_60_program < ?';
+    var sql = 'SELECT mosogepek.*, markak.Marka FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID WHERE mosogepek.Fogyasztas_eco_40_60_program < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -332,7 +332,7 @@ app.get('/mosogepek/:selected_washing_m_ep40_60_c', function (req, res, next) {
 
 app.get('/szaritogepek', function (req, res, next) {
     db.query(
-        'SELECT * FROM szaritogepek',
+        'SELECT szaritogepek.*, markak.Marka FROM szaritogepek INNER JOIN markak ON szaritogepek.BrandID = markak.BrandID;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -346,7 +346,7 @@ app.get('/szaritogepek', function (req, res, next) {
 
 app.get('/szaritogepek/min', function (req, res, next) {
     db.query(
-        'SELECT * FROM szaritogepek WHERE Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM szaritogepek) LIMIT 1',
+        'SELECT szaritogepek.*, markak.Marka FROM szaritogepek INNER JOIN markak ON szaritogepek.BrandID = markak.BrandID WHERE szaritogepek.Fogyasztasev = (SELECT MIN(Fogyasztasev) FROM szaritogepek) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -468,9 +468,12 @@ app.post('/users', async (req, res) => {
 
 
 app.post('/profiles', (req, res) => {
-    const { searchValueRefrigerator, searchValueFreezer, searchValueHot_plate, searchValueMicrowave, searchValueDishwasher,
-        searchValueDehumidifier, searchValueOven, searchValueWashing_machine, searchValueDryer, email} = req.body;
+    const {
+        searchValueRefrigerator, searchValueFreezer, searchValueHot_plate, searchValueMicrowave, searchValueDishwasher,
+        searchValueDehumidifier, searchValueOven, searchValueWashing_machine, searchValueDryer, email
+    } = req.body;
 
+    // Ellenőrizzük, hogy az e-mail cím már létezik-e az adatbázisban
     const checkEmailQuery = 'SELECT * FROM profiles WHERE email = ?';
     db.query(checkEmailQuery, [email], (emailError, emailResults) => {
         if (emailError) {
@@ -478,24 +481,55 @@ app.post('/profiles', (req, res) => {
             res.status(500).json({ message: 'Hiba történt a mentés során' });
         } else {
             if (emailResults.length > 0) {
-                console.log('Ezzel az E-mail címmel már van profil létrehozva!');
-                res.status(409).json({message: 'Ezzel az E-mail címmel már van profil létrehozva!'});
-            } else {
-                const insertQuery = 'INSERT INTO profiles (searchValueRefrigerator, searchValueFreezer, searchValueHot_plate, searchValueMicrowave, searchValueDishwasher, searchValueDehumidifier, searchValueOven, searchValueWashing_machine, searchValueDryer, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-                db.query(insertQuery, [searchValueRefrigerator, searchValueFreezer, searchValueHot_plate, searchValueMicrowave, searchValueDishwasher, searchValueDehumidifier, searchValueOven, searchValueWashing_machine, searchValueDryer, email], (error, result) => {
-                    if (error) {
-                        console.error('Hiba az adatbázisba való beszúrás során: ', error);
-                        res.status(500).json({message: 'Hiba történt a mentés során!'});
+                // Az e-mail cím már létezik, frissítjük a meglévő profilt
+                const updateQuery = `
+                    UPDATE profiles
+                    SET
+                        searchValueRefrigerator = ?,
+                        searchValueFreezer = ?,
+                        searchValueHot_plate = ?,
+                        searchValueMicrowave = ?,
+                        searchValueDishwasher = ?,
+                        searchValueDehumidifier = ?,
+                        searchValueOven = ?,
+                        searchValueWashing_machine = ?,
+                        searchValueDryer = ?
+                    WHERE email = ?;
+                `;
+                const updateValues = [
+                    searchValueRefrigerator, searchValueFreezer, searchValueHot_plate, searchValueMicrowave, searchValueDishwasher,
+                    searchValueDehumidifier, searchValueOven, searchValueWashing_machine, searchValueDryer, email
+                ];
+                db.query(updateQuery, updateValues, (updateError, updateResult) => {
+                    if (updateError) {
+                        console.error('Hiba a profil frissítésekor: ', updateError);
+                        res.status(500).json({ message: 'Hiba történt a profil frissítése során!' });
                     } else {
-                        console.log('Sikeres mentés');
-                        res.status(200).json({message: 'Sikeres mentés!'});
+                        console.log('Profil frissítve');
+                        res.status(200).json({ message: 'Profil sikeresen frissítve!' });
                     }
                 });
-
+            } else {
+                // Az e-mail cím nem létezik, új profil létrehozása
+                const insertQuery = 'INSERT INTO profiles (searchValueRefrigerator, searchValueFreezer, searchValueHot_plate, searchValueMicrowave, searchValueDishwasher, searchValueDehumidifier, searchValueOven, searchValueWashing_machine, searchValueDryer, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                const insertValues = [
+                    searchValueRefrigerator, searchValueFreezer, searchValueHot_plate, searchValueMicrowave, searchValueDishwasher,
+                    searchValueDehumidifier, searchValueOven, searchValueWashing_machine, searchValueDryer, email
+                ];
+                db.query(insertQuery, insertValues, (insertError, insertResult) => {
+                    if (insertError) {
+                        console.error('Hiba az adatbázisba való beszúrás során: ', insertError);
+                        res.status(500).json({ message: 'Hiba történt a mentés során!' });
+                    } else {
+                        console.log('Sikeres mentés');
+                        res.status(200).json({ message: 'Sikeres mentés!' });
+                    }
+                });
             }
         }
     });
 });
+
 
 app.get('/profiles/:userEmail', function (req, res, next) {
     var adr = req.params.userEmail;
@@ -509,24 +543,6 @@ app.get('/profiles/:userEmail', function (req, res, next) {
         }
     });
 });
-
-app.delete('/profiles/:userEmail', async (req, res) => {
-    const adr = req.params.userEmail;
-
-    // Töröld az adatbázisban az adott felhasználóhoz tartozó rekordokat
-    const deleteQuery = 'DELETE FROM * profiles WHERE email = ?';
-
-    db.query(deleteQuery, [adr], (err, results) => {
-        if (err) {
-            console.error('Hiba történt a törlés során: ' + err.stack);
-            res.status(500).json({ error: 'Hiba történt a törlés során' });
-            return;
-        }
-        res.status(200).json({ message: 'Sikeres törlés' });
-    });
-});
-
-
 
 
 
