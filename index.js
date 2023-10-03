@@ -10,9 +10,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
+    host:'192.168.1.225',
+    user:'test',
+    password:'test123',
     database:'database',
     port:3306
 });
@@ -23,8 +23,9 @@ const port = process.env.PORT || 3000;
 app.listen(port, ()=>{console.log(`Szerver fut a ${port} porton`)});
 
 db.connect(err => {
-    if(err){console.log('err')}
-    console.log('Adatbázis sikeresen csatlakoztatva')
+    if(err){console.log('err')} else{
+        console.log('Adatbázis sikeresen csatlakoztatva')
+    }
 });
 
 
