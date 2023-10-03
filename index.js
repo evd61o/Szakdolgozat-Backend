@@ -262,9 +262,9 @@ app.get('/sutok', function (req, res, next) {
     );
 });
 
-app.get('/sutok/min', function (req, res, next) {
+app.get('/sutok/minhagyomanyos', function (req, res, next) {
     db.query(
-        'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Fogyasztas = (SELECT MIN(Fogyasztas) FROM sutok) LIMIT 1;',
+        'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_hagyomanyos = (SELECT MIN(Egy_uzemciklusra_vetitett_energiafogyasztas_hagyomanyos) FROM sutok) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -276,10 +276,25 @@ app.get('/sutok/min', function (req, res, next) {
     );
 });
 
-app.get('/sutok/:selected_oven_c', function (req, res, next) {
-    var adr = req.params.selected_oven_c;
-    var sql = 'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Fogyasztas < ?;';
-    db.query(sql, [adr], function (error, results) {
+app.get('/sutok/minlegkevereses', function (req, res, next) {
+    db.query(
+        'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_legkevereses = (SELECT MIN(Egy_uzemciklusra_vetitett_energiafogyasztas_legkevereses) FROM sutok) LIMIT 1;',
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({status: 'error'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    );
+});
+
+app.get('/sutok/:selected_oven_c_traditional/:selected_oven_c_airmixing', function (req, res, next) {
+    var adrTraditional = req.params.selected_oven_c_traditional;
+    var adrAirmixing = req.params.selected_oven_c_airmixing;
+    var sql = 'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_hagyomanyos < ? and sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_legkevereses < ?;';
+    db.query(sql, [adrTraditional, adrAirmixing], function (error, results) {
         if (error) {
             console.log(error);
             res.status(500).json({status: 'error'});
@@ -361,7 +376,7 @@ app.get('/szaritogepek/min', function (req, res, next) {
 
 app.get('/szaritogepek/:selected_dryer_y_c', function (req, res, next) {
     var adr = req.params.selected_dryer_y_c;
-    var sql = 'SELECT * FROM szaritogepek WHERE Fogyasztasev < ?';
+    var sql = 'SELECT szaritogepek.*, markak.Marka FROM szaritogepek INNER JOIN markak ON szaritogepek.BrandID = markak.BrandID WHERE szaritogepek.Fogyasztasev < ?;';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
