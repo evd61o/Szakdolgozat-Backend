@@ -10,17 +10,19 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-    host:'192.168.1.225',
-    user:'test',
-    password:'test123',
-    database:'database',
+    host:'sql11.freemysqlhosting.net',
+    user:'sql11650761',
+    password:'qfCGEXbbN4',
+    database:'sql11650761',
     port:3306
 });
 
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, ()=>{console.log(`Szerver fut a ${port} porton`)});
+app.listen(port, () => {
+    console.log(`Szerver fut a ${port} porton`);
+});
 
 db.connect(err => {
     if(err){console.log('err')} else{
