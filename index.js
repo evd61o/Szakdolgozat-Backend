@@ -9,21 +9,21 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const db = mysql.createConnection({
-    host:'sql11.freemysqlhosting.net',
-    user:'sql11650761',
-    password:'qfCGEXbbN4',
-    database:'sql11650761',
-    port:3306
-});
-
 // const db = mysql.createConnection({
-//     host:'localhost',
-//     user:'root',
-//     password:'',
-//     database:'database',
+//     host:'sql11.freemysqlhosting.net',
+//     user:'sql11650761',
+//     password:'qfCGEXbbN4',
+//     database:'sql11650761',
 //     port:3306
 // });
+
+const db = mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'',
+    database:'database',
+    port:3306
+});
 
 
 const port = process.env.PORT || 3000;
@@ -190,6 +190,19 @@ app.get('/mikrohullamu_sutok/min', function (req, res) {
     );
 });
 
+app.get('/mikrohullamu_sutok/:selected_microwave_c', function (req, res) {
+    var adr = req.params.selected_microwave_c;
+    var sql = 'SELECT mikrohullamu_sutok.*, markak.Marka, tipusok.Tipus FROM mikrohullamu_sutok INNER JOIN markak ON mikrohullamu_sutok.BrandID = markak.BrandID INNER JOIN tipusok ON mikrohullamu_sutok.TypeID = tipusok.TypeID WHERE mikrohullamu_sutok.Fogyasztas < ?;';
+    db.query(sql, [adr], function (error, results) {
+        if (error) {
+            console.log(error);
+            res.status(500).json({status: 'error'});
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
 app.get('/mosogatogepek', function (req, res) {
     db.query(
         'SELECT mosogatogepek.*, markak.Marka, tipusok.Tipus FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogatogepek.TypeID = tipusok.TypeID;',
@@ -243,6 +256,19 @@ app.get('/paraelszivok', function (req, res) {
             }
         }
     );
+});
+
+app.get('/paraelszivok/:selected_dehumidifier_c', function (req, res) {
+    var adr = req.params.selected_dehumidifier_c;
+    var sql = 'SELECT paraelszivok.*, markak.Marka FROM paraelszivok INNER JOIN markak ON paraelszivok.BrandID = markak.BrandID WHERE paraelszivok.Fogyasztas < ?;';
+    db.query(sql, [adr], function (error, results) {
+        if (error) {
+            console.log(error);
+            res.status(500).json({status: 'error'});
+        } else {
+            res.status(200).json(results);
+        }
+    });
 });
 
 app.get('/paraelszivok/min', function (req, res) {
