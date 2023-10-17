@@ -219,7 +219,7 @@ app.get('/mosogatogepek', function (req, res) {
 
 app.get('/mosogatogepek/min', function (req, res) {
     db.query(
-        'SELECT mosogatogepek.*, markak.Marka, tipusok.Tipus FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogatogepek.TypeID = tipusok.TypeID WHERE mosogatogepek.Fogyasztas_kWh_eco_program = (SELECT MIN(Fogyasztas_kWh_eco_program) FROM mosogatogepek) LIMIT 1;',
+        'SELECT mosogatogepek.*, markak.Marka, tipusok.Tipus FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogatogepek.TypeID = tipusok.TypeID WHERE mosogatogepek.Fogyasztas_100_eco_program = (SELECT MIN(Fogyasztas_100_eco_program) FROM mosogatogepek) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -231,9 +231,9 @@ app.get('/mosogatogepek/min', function (req, res) {
     );
 });
 
-app.get('/mosogatogepek/:selected_dishwasher_ep_c', function (req, res) {
-    var adr = req.params.selected_dishwasher_ep_c;
-    var sql = 'SELECT mosogatogepek.*, markak.Marka, tipusok.Tipus FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogatogepek.TypeID = tipusok.TypeID WHERE mosogatogepek.Fogyasztas_kWh_eco_program < ?';
+app.get('/mosogatogepek/:selected_dishwasher_100_ep_c', function (req, res) {
+    var adr = req.params.selected_dishwasher_100_ep_c;
+    var sql = 'SELECT mosogatogepek.*, markak.Marka, tipusok.Tipus FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogatogepek.TypeID = tipusok.TypeID WHERE mosogatogepek.Fogyasztas_100_eco_program < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -357,7 +357,7 @@ app.get('/mosogepek', function (req, res) {
 
 app.get('/mosogepek/min', function (req, res) {
     db.query(
-        'SELECT mosogepek.*, markak.Marka, tipusok.Tipus FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogepek.TypeID = tipusok.TypeID WHERE mosogepek.Fogyasztas_eco_40_60_program = (SELECT MIN(Fogyasztas_eco_40_60_program) FROM mosogepek) LIMIT 1;',
+        'SELECT mosogepek.*, markak.Marka, tipusok.Tipus FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogepek.TypeID = tipusok.TypeID WHERE mosogepek.Fogyasztas_100_eco_40_60_program = (SELECT MIN(Fogyasztas_100_eco_40_60_program) FROM mosogepek) LIMIT 1;',
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -369,9 +369,9 @@ app.get('/mosogepek/min', function (req, res) {
     );
 });
 
-app.get('/mosogepek/:selected_washing_m_ep40_60_c', function (req, res) {
-    var adr = req.params.selected_washing_m_ep40_60_c;
-    var sql = 'SELECT mosogepek.*, markak.Marka, tipusok.Tipus FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogepek.TypeID = tipusok.TypeID WHERE mosogepek.Fogyasztas_eco_40_60_program < ?';
+app.get('/mosogepek/:selected_washing_m_100_ep40_60_c', function (req, res) {
+    var adr = req.params.selected_washing_m_100_ep40_60_c;
+    var sql = 'SELECT mosogepek.*, markak.Marka, tipusok.Tipus FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogepek.TypeID = tipusok.TypeID WHERE mosogepek.Fogyasztas_100_eco_40_60_program < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
