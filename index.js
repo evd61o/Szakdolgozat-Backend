@@ -78,8 +78,8 @@ app.get('/fagyasztok/min', function (req, res) {
 });
 
 app.get('/fagyasztok/:selected_freezer_y_c', function (req, res) {
-    var adr = req.params.selected_freezer_y_c;
-    var sql = 'SELECT fagyasztok.*, markak.Marka, tipusok.Tipus FROM fagyasztok INNER JOIN markak ON fagyasztok.BrandID = markak.BrandID INNER JOIN tipusok ON fagyasztok.TypeID = tipusok.TypeID WHERE fagyasztok.Fogyasztasev < ?';
+    const adr = req.params.selected_freezer_y_c;
+    const sql = 'SELECT fagyasztok.*, markak.Marka, tipusok.Tipus FROM fagyasztok INNER JOIN markak ON fagyasztok.BrandID = markak.BrandID INNER JOIN tipusok ON fagyasztok.TypeID = tipusok.TypeID WHERE fagyasztok.Fogyasztasev < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -119,8 +119,8 @@ app.get('/fozolapok/min', function (req, res) {
 });
 
 app.get('/fozolapok/:selected_hot_plate_c', function (req, res) {
-    var adr = req.params.selected_hot_plate_c;
-    var sql = 'SELECT fozolapok.*, markak.Marka, tipusok.Tipus FROM fozolapok INNER JOIN markak ON fozolapok.BrandID = markak.BrandID INNER JOIN tipusok ON fozolapok.TypeID = tipusok.TypeID WHERE fozolapok.Fogyasztas < ?;'
+    const adr = req.params.selected_hot_plate_c;
+    const sql = 'SELECT fozolapok.*, markak.Marka, tipusok.Tipus FROM fozolapok INNER JOIN markak ON fozolapok.BrandID = markak.BrandID INNER JOIN tipusok ON fozolapok.TypeID = tipusok.TypeID WHERE fozolapok.Fogyasztas < ?;'
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -160,8 +160,8 @@ app.get('/hutok/min', function (req, res) {
 });
 
 app.get('/hutok/:selected_refrigerator_y_c', function (req, res) {
-    var adr = req.params.selected_refrigerator_y_c;
-    var sql = 'SELECT hutok.*, markak.Marka, tipusok.Tipus FROM hutok INNER JOIN markak ON hutok.BrandID = markak.BrandID INNER JOIN tipusok ON hutok.TypeID = tipusok.TypeID WHERE hutok.Fogyasztasev < ?';
+    const adr = req.params.selected_refrigerator_y_c;
+    const sql = 'SELECT hutok.*, markak.Marka, tipusok.Tipus FROM hutok INNER JOIN markak ON hutok.BrandID = markak.BrandID INNER JOIN tipusok ON hutok.TypeID = tipusok.TypeID WHERE hutok.Fogyasztasev < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -201,8 +201,8 @@ app.get('/mikrohullamu_sutok/min', function (req, res) {
 });
 
 app.get('/mikrohullamu_sutok/:selected_microwave_c', function (req, res) {
-    var adr = req.params.selected_microwave_c;
-    var sql = 'SELECT mikrohullamu_sutok.*, markak.Marka, tipusok.Tipus FROM mikrohullamu_sutok INNER JOIN markak ON mikrohullamu_sutok.BrandID = markak.BrandID INNER JOIN tipusok ON mikrohullamu_sutok.TypeID = tipusok.TypeID WHERE mikrohullamu_sutok.Fogyasztas < ?;';
+    const adr = req.params.selected_microwave_c;
+    const sql = 'SELECT mikrohullamu_sutok.*, markak.Marka, tipusok.Tipus FROM mikrohullamu_sutok INNER JOIN markak ON mikrohullamu_sutok.BrandID = markak.BrandID INNER JOIN tipusok ON mikrohullamu_sutok.TypeID = tipusok.TypeID WHERE mikrohullamu_sutok.Fogyasztas < ?;';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -242,8 +242,8 @@ app.get('/mosogatogepek/min', function (req, res) {
 });
 
 app.get('/mosogatogepek/:selected_dishwasher_100_ep_c', function (req, res) {
-    var adr = req.params.selected_dishwasher_100_ep_c;
-    var sql = 'SELECT mosogatogepek.*, markak.Marka, tipusok.Tipus FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogatogepek.TypeID = tipusok.TypeID WHERE mosogatogepek.Fogyasztas_100_eco_program < ?';
+    const adr = req.params.selected_dishwasher_100_ep_c;
+    const sql = 'SELECT mosogatogepek.*, markak.Marka, tipusok.Tipus FROM mosogatogepek INNER JOIN markak ON mosogatogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogatogepek.TypeID = tipusok.TypeID WHERE mosogatogepek.Fogyasztas_100_eco_program < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -269,8 +269,8 @@ app.get('/paraelszivok', function (req, res) {
 });
 
 app.get('/paraelszivok/:selected_dehumidifier_c', function (req, res) {
-    var adr = req.params.selected_dehumidifier_c;
-    var sql = 'SELECT paraelszivok.*, markak.Marka FROM paraelszivok INNER JOIN markak ON paraelszivok.BrandID = markak.BrandID WHERE paraelszivok.Fogyasztas < ?;';
+    const adr = req.params.selected_dehumidifier_c;
+    const sql = 'SELECT paraelszivok.*, markak.Marka FROM paraelszivok INNER JOIN markak ON paraelszivok.BrandID = markak.BrandID WHERE paraelszivok.Fogyasztas < ?;';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -338,9 +338,9 @@ app.get('/sutok/minlegkevereses', function (req, res) {
 });
 
 app.get('/sutok/:selected_oven_c_traditional/:selected_oven_c_airmixing', function (req, res) {
-    var adrTraditional = req.params.selected_oven_c_traditional;
-    var adrAirmixing = req.params.selected_oven_c_airmixing;
-    var sql = 'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_hagyomanyos < ? and sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_legkevereses < ?;';
+    const adrTraditional = req.params.selected_oven_c_traditional;
+    const adrAirmixing = req.params.selected_oven_c_airmixing;
+    const sql = 'SELECT sutok.*, markak.Marka FROM sutok INNER JOIN markak ON sutok.BrandID = markak.BrandID WHERE sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_hagyomanyos < ? and sutok.Egy_uzemciklusra_vetitett_energiafogyasztas_legkevereses < ?;';
     db.query(sql, [adrTraditional, adrAirmixing], function (error, results) {
         if (error) {
             console.log(error);
@@ -380,8 +380,8 @@ app.get('/mosogepek/min', function (req, res) {
 });
 
 app.get('/mosogepek/:selected_washing_m_100_ep40_60_c', function (req, res) {
-    var adr = req.params.selected_washing_m_100_ep40_60_c;
-    var sql = 'SELECT mosogepek.*, markak.Marka, tipusok.Tipus FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogepek.TypeID = tipusok.TypeID WHERE mosogepek.Fogyasztas_100_eco_40_60_program < ?';
+    const adr = req.params.selected_washing_m_100_ep40_60_c;
+    const sql = 'SELECT mosogepek.*, markak.Marka, tipusok.Tipus FROM mosogepek INNER JOIN markak ON mosogepek.BrandID = markak.BrandID INNER JOIN tipusok ON mosogepek.TypeID = tipusok.TypeID WHERE mosogepek.Fogyasztas_100_eco_40_60_program < ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -422,8 +422,8 @@ app.get('/szaritogepek/min', function (req, res) {
 
 
 app.get('/szaritogepek/:selected_dryer_y_c', function (req, res) {
-    var adr = req.params.selected_dryer_y_c;
-    var sql = 'SELECT szaritogepek.*, markak.Marka, tipusok.Tipus FROM szaritogepek INNER JOIN markak ON szaritogepek.BrandID = markak.BrandID INNER JOIN tipusok ON szaritogepek.TypeID = tipusok.TypeID WHERE szaritogepek.Fogyasztasev < ?;';
+    const adr = req.params.selected_dryer_y_c;
+    const sql = 'SELECT szaritogepek.*, markak.Marka, tipusok.Tipus FROM szaritogepek INNER JOIN markak ON szaritogepek.BrandID = markak.BrandID INNER JOIN tipusok ON szaritogepek.TypeID = tipusok.TypeID WHERE szaritogepek.Fogyasztasev < ?;';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
@@ -595,8 +595,8 @@ app.post('/profiles', (req, res) => {
 
 
 app.get('/profiles/:userEmail', function (req, res) {
-    var adr = req.params.userEmail;
-    var sql = 'SELECT * FROM profiles WHERE email = ?';
+    const adr = req.params.userEmail;
+    const sql = 'SELECT * FROM profiles WHERE email = ?';
     db.query(sql, [adr], function (error, results) {
         if (error) {
             console.log(error);
