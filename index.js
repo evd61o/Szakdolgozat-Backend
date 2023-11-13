@@ -6,6 +6,16 @@ const bcrypt = require('bcrypt');
 
 const app = express();
 
+// const functions = require('firebase-functions');
+//
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'https://szakdolgozat-a8381.firebaseapp.com');
+//     res.header('Access-Control-Allow-Origin', 'https://szakdolgozat-a8381.firebaseapp.com');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     next();
+// });
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -425,7 +435,7 @@ app.get('/szaritogepek/:selected_dryer_y_c', function (req, res) {
 
 });
 
-app.post('/users', async (req, res) => {
+app.post('/users',  (req, res) => {
     const { username, email, password, action } = req.body;
     const plainPassword = req.body.password; // Felhasználó által megadott jelszó
 
@@ -467,7 +477,8 @@ app.post('/users', async (req, res) => {
         const saltRounds = 10; // A titkosítási erősség (10-12 ajánlott)
         bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
             if (err) {
-                // Kezeld a hibát
+                console.error('Hiba a jelszó titkosítása során: ' + err.stack);
+                return res.status(500).json({ message: 'Hiba történt a regisztráció során' });
             } else {
                 // SQL lekérdezés az adatbázisban lévő felhasználónév ellenőrzéséhez
                 const checkUsernameQuery = 'SELECT * FROM users WHERE username = ?';
